@@ -1,7 +1,8 @@
 streamlit
 chromadb==0.5.5
+sentence-transformers
+langchain-text-splitters
 pypdf
 python-dotenv
 google-genai
-sentence-transformers
-langchain-text-splitters
+protobuf==4.25.3
