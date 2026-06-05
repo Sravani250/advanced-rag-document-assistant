@@ -1,8 +1,7 @@
 streamlit
-chromadb
-google-genai
-python-dotenv
+chromadb==0.5.5
 pypdf
+python-dotenv
+google-genai
 sentence-transformers
 langchain-text-splitters
-pandas
