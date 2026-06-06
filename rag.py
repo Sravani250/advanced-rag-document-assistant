@@ -211,7 +211,7 @@ Question:
                     }
                 )
 
-        return {
+                return {
 
             "answer":
             answer,
@@ -226,15 +226,14 @@ Question:
             retrieved_docs
         }
 
-except Exception as e:
+    except Exception as e:
 
-    return {
+        return {
 
-        "answer":
-        f"{type(e).__name__}: {str(e)}\n\n{traceback.format_exc()}",
+            "answer":
+            f"{type(e).__name__}: {str(e)}\n\n{traceback.format_exc()}",
 
-        "sources": [],
-        "scores": [],
-        "chunks": []
-    }
-
+            "sources": [],
+            "scores": [],
+            "chunks": []
+        }
