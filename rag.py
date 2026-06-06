@@ -1,8 +1,15 @@
 import os
 import chromadb
+import traceback
 
 from dotenv import load_dotenv
 from google import genai
+
+import os
+
+if not os.path.exists("chroma_db"):
+    from ingest import rebuild_database
+    rebuild_database()
 
 load_dotenv()
 
@@ -35,8 +42,20 @@ client = chromadb.PersistentClient(
 path="chroma_db"
 )
 
+from chromadb.utils.embedding_functions import (
+    SentenceTransformerEmbeddingFunction
+)
+
+embedding_function = SentenceTransformerEmbeddingFunction(
+    model_name="all-MiniLM-L6-v2"
+)
+
 def get_collection():
-    return client.get_collection(name="documents")
+
+    return client.get_or_create_collection(
+        name="documents",
+        embedding_function=embedding_function
+    )
 
 # -----------------------
 
@@ -207,15 +226,15 @@ Question:
             retrieved_docs
         }
 
-    except Exception as e:
+except Exception as e:
 
-        return {
+    return {
 
-            "answer":
-            f"Error: {str(e)}",
+        "answer":
+        f"{type(e).__name__}: {str(e)}\n\n{traceback.format_exc()}",
 
-            "sources": [],
-            "scores": [],
-            "chunks": []
-        }
+        "sources": [],
+        "scores": [],
+        "chunks": []
+    }
 
